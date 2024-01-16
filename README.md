@@ -5,4 +5,4 @@ including the following:
 - Spring framework 
 - Hibernate
 - Redis
-- Design Patterns
+- Design Patterns, Thanks to Christopher Okhravi (https://www.youtube.com/@ChristopherOkhravi/playlists)
