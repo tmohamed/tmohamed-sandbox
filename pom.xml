@@ -9,7 +9,8 @@
 	<modules>
 		<module>java-8-samples</module>
         <module>core-java</module>
-    </modules>
+		<module>design-patterns</module>
+	</modules>
 
 	<properties>
 		<maven.compiler.source>17</maven.compiler.source>

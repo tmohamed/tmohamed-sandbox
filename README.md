@@ -5,3 +5,4 @@ including the following:
 - Spring framework 
 - Hibernate
 - Redis
+- Design Patterns
