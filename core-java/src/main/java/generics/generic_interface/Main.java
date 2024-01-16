@@ -6,7 +6,7 @@ import lombok.ToString;
 
 public class Main {
     public static void main(String[] args) {
-        JdbcRepository<Employee, Long> employeeRepository = new JdbcRepository();
+        JpaRepository<Employee, Long> employeeRepository = new JpaRepository();
         employeeRepository.save(new Employee(1L, "Tamer Mohamed"));
         employeeRepository.save(new Employee(2L, "Ahmed Saeed"));
 
@@ -30,7 +30,7 @@ interface Repository<T, ID>{
     T findOneById(ID id);
 }
 
-class JdbcRepository<T, ID> implements Repository<T, ID>{
+class JpaRepository<T, ID> implements Repository<T, ID>{
 
     @Override
     public T save(T entity) {
