@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.ToString;
 
-public class Main {
+public class GenericInterfaceApplication {
     public static void main(String[] args) {
         JpaRepository<Employee, Long> employeeRepository = new JpaRepository();
         employeeRepository.save(new Employee(1L, "Tamer Mohamed"));

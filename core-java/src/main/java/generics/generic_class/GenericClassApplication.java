@@ -3,7 +3,7 @@ package generics.generic_class;
 import com.google.gson.Gson;
 import lombok.ToString;
 
-public class Main {
+public class GenericClassApplication {
     public static void main(String[] args) {
         Processor<InquiryRequest, InquiryResponse> inquiryProcessor = new Processor<>();
         InquiryResponse inquiryResponse = inquiryProcessor.processRequest(new InquiryRequest(), InquiryResponse.class, new HttpClient<>());
