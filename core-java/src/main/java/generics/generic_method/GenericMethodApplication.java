@@ -22,7 +22,9 @@ public class GenericMethodApplication {
                 new Employee(2, "Employee 2"),
                 new Employee(3, "Employee 3"));
 
+        // Both expression below are the same as "Explicit type arguments can be inferred"
         Utils.print(employeeList);
+        Utils.<Employee>print(employeeList);
 
         System.out.println("------------------------");
 
