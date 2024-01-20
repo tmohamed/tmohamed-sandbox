@@ -9,6 +9,7 @@ public class UpperBoundedWildcardParameterApplication {
 
         SumCalculatorV2<Integer> sumCalculatorV2 = new SumCalculatorV2<>();
         System.out.println(sumCalculatorV2.sum(List.of(1, 2, 3, 4, 5)));
+        System.out.println(sumCalculatorV2.sumV2(List.of(1, 2, 3, 4, 5)));
 
         // the following will not compile, as
         // while Integer & Double are subtypes of Number
@@ -25,6 +26,9 @@ public class UpperBoundedWildcardParameterApplication {
         // That's why wildcards are needed
         /* System.out.println(NotGenericSumCalculator.sum(integerList));
         System.out.println(NotGenericSumCalculator.sum(doubleList)); */
+
+        System.out.println(Util.genericSumV2(integerList));
+        System.out.println(Util.genericSumV2(doubleList));
 
     }
 }
@@ -45,6 +49,10 @@ class SumCalculatorV2<T extends Number> {
     public double sum(List<T> numbers){
         return Util.genericSum(numbers);
     }
+
+    public double sumV2(List<T> numbers){
+        return Util.genericSumV2(numbers);
+    }
 }
 
 class Util {
@@ -55,6 +63,12 @@ class Util {
     }
 
     public static <T extends Number> double genericSum(List<T> numbers){
+        return numbers.stream()
+                .mapToDouble(Number::doubleValue)
+                .sum();
+    }
+
+    public static double genericSumV2(List<? extends Number> numbers){
         return numbers.stream()
                 .mapToDouble(Number::doubleValue)
                 .sum();
