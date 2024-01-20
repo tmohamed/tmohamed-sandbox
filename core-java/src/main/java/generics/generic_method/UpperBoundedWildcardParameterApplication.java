@@ -16,19 +16,45 @@ public class UpperBoundedWildcardParameterApplication {
         // That's why wildcards are needed
         //System.out.println(sumCalculatorV2.sum(List.of(1.0, 2.0, 3.0, 4.0, 5.0)));
 
+        List<Integer> integerList = List.of(1, 2, 3, 4, 5);
+        List<Double> doubleList = List.of(1.0, 2.0, 3.0, 4.0, 5.0);
+
+        // the following will not compile, as
+        // while Integer & Double are subtypes of Number
+        // List<Integer> & List<Double> are NOT subtypes of List<Number>
+        // That's why wildcards are needed
+        /* System.out.println(NotGenericSumCalculator.sum(integerList));
+        System.out.println(NotGenericSumCalculator.sum(doubleList)); */
+
+    }
+}
+
+class NotGenericSumCalculator{
+    public static double sum(List<Number> numbers){
+        return Util.nonGenericSum(numbers);
     }
 }
 
 class SumCalculator {
     public static double sum(List<? extends Number> numbers){
-        return numbers.stream()
-                .mapToDouble(Number::doubleValue)
-                .sum();
+        return Util.genericSum(numbers);
     }
 }
 
 class SumCalculatorV2<T extends Number> {
     public double sum(List<T> numbers){
+        return Util.genericSum(numbers);
+    }
+}
+
+class Util {
+    public static double nonGenericSum(List<Number> numbers){
+        return numbers.stream()
+                .mapToDouble(Number::doubleValue)
+                .sum();
+    }
+
+    public static <T extends Number> double genericSum(List<T> numbers){
         return numbers.stream()
                 .mapToDouble(Number::doubleValue)
                 .sum();
