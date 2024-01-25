@@ -38,7 +38,7 @@ class CommonUtils {
     }
 
     public static void createGetter(String fieldName, String fieldType, StringBuffer stringBuffer) {
-        String getterMethod = String.format("public %s get%s(){return this.%s;}",fieldType, camelCase(fieldName), fieldName);
+        String getterMethod = String.format("public %s %s%s(){return this.%s;}",fieldType, fieldType.equals("boolean") ? "is" : "get" , camelCase(fieldName), fieldName);
         stringBuffer.append(getterMethod);
         stringBuffer.append("\n");
     }
