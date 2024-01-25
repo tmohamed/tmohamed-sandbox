@@ -93,7 +93,7 @@ interface IntTest {
     void showValue();
 }
 
-
+@Deprecated(forRemoval = true)
 class ChildClass extends Parent implements IntTest {
     private int value;
     public String publicValue;
