@@ -13,7 +13,10 @@ public class ConstructorInvocationApplication {
             System.out.println("-- Getting Constructor with 2 args --");
             Constructor twoArgsConstructor = clazz.getConstructor(String.class, int.class);
             System.out.println(twoArgsConstructor);
+            Model twoArgsObject = (Model) twoArgsConstructor.newInstance(new Object[] {"Tamer Mohamed", 36});
+            twoArgsObject.print();
             System.out.println();
+
 
             System.out.println("-- Getting all public Constructors of the class --");
             Constructor[] publicConstructors = clazz.getConstructors();
@@ -23,6 +26,10 @@ public class ConstructorInvocationApplication {
             System.out.println("-- Getting private Constructor of the class --");
             Constructor privateConstructor = clazz.getDeclaredConstructor();
             System.out.println(privateConstructor);
+
+            privateConstructor.setAccessible(true);
+            Model privateObject = (Model) privateConstructor.newInstance();
+            privateObject.print();
             System.out.println();
 
             System.out.println("-- Getting all declared Constructors of the class --");
