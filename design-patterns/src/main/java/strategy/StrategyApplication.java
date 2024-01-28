@@ -21,14 +21,12 @@ public class StrategyApplication {
         );
 
         OrderValuesCalculator calculator = new OrderValuesCalculator();
-        calculator.setFilter(allOrdersFilter);
-        System.out.println(String.format("Total Sum: %s", calculator.sumValue(orderList)));
 
-        calculator.setFilter(physicalOrdersFilter);
-        System.out.println(String.format("Physical Sum: %s", calculator.sumValue(orderList)));
+        System.out.println(String.format("Total Sum: %s", calculator.sumValue(orderList, allOrdersFilter)));
 
-        calculator.setFilter(electronicOrderFilter);
-        System.out.println(String.format("Electronic Sum: %s", calculator.sumValue(orderList)));
+        System.out.println(String.format("Physical Sum: %s", calculator.sumValue(orderList, physicalOrdersFilter)));
+
+        System.out.println(String.format("Electronic Sum: %s", calculator.sumValue(orderList, electronicOrderFilter)));
     }
 }
 
@@ -83,14 +81,8 @@ class Order {
 }
 
 class OrderValuesCalculator {
-    private Filter filter;
-
-    public void setFilter(Filter filter){
-        this.filter = filter;
-    }
-
-    public Double sumValue(List<Order> orderList){
-        List<Order> orders = this.filter.filter(orderList);
+    public Double sumValue(List<Order> orderList, Filter filter){
+        List<Order> orders = filter.filter(orderList);
         return orders.stream().mapToDouble(Order::getValue).sum();
     }
 }
