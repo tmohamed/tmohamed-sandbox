@@ -20,6 +20,7 @@ public class StrategyFunctionalApplication {
         );
 
         OrderValuesCalculator calculator = new OrderValuesCalculator();
+
         System.out.println(String.format("Total Sum: %s", calculator.sumValue(orderList, allOrdersFilter)));
 
         System.out.println(String.format("Physical Sum: %s", calculator.sumValue(orderList, physicalOrdersFilter)));
