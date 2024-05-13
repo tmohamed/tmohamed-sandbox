@@ -10,6 +10,7 @@
 		<module>java-8-samples</module>
         <module>core-java</module>
 		<module>design-patterns</module>
+		<module>circuit-breaker-demo</module>
 	</modules>
 
 	<properties>
