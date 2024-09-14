@@ -11,6 +11,7 @@
         <module>core-java</module>
 		<module>design-patterns</module>
 		<module>circuit-breaker-demo</module>
+		<module>OpenAPIGenerator</module>
 	</modules>
 
 	<properties>

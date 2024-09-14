@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.tamer.open_api_generator</groupId>
+  <artifactId>OpenAPIGenerator</artifactId>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>3.3.2</version>
+    <relativePath/> <!-- lookup parent from repository -->
+  </parent>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.openapitools</groupId>
+      <artifactId>jackson-databind-nullable</artifactId>
+      <version>${jackson-databind-nullable.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-ui</artifactId>
+      <version>${springdoc.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>3.1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.xml.bind</groupId>
+      <artifactId>jaxb-api</artifactId>
+      <version>2.3.0</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.validation</groupId>
+      <artifactId>validation-api</artifactId>
+      <version>2.0.1.Final</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.annotation</groupId>
+      <artifactId>javax.annotation-api</artifactId>
+      <version>1.3.2</version>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.openapitools</groupId>
+        <artifactId>openapi-generator-maven-plugin</artifactId>
+        <version>${openapi-generator.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <inputSpec>
+                ${project.basedir}/src/main/resources/static/pets.yaml
+              </inputSpec>
+              <generatorName>spring</generatorName>
+              <apiPackage>${api.package}</apiPackage>
+              <modelPackage>${api.package}.resources</modelPackage>
+              <supportingFilesToGenerate>
+                ApiUtil.java
+              </supportingFilesToGenerate>
+              <configOptions>
+                <delegatePattern>true</delegatePattern>
+                <interfaceOnly>true</interfaceOnly>
+              </configOptions>
+            </configuration>
+          </execution>
+
+<!--          <execution>-->
+<!--            <id>generate-api-interfaces</id>-->
+<!--            <goals>-->
+<!--              <goal>generate</goal>-->
+<!--            </goals>-->
+<!--            <configuration>-->
+<!--              <inputSpec>${project.basedir}/src/main/resources/static/pets.yaml</inputSpec>-->
+<!--              <generatorName>spring</generatorName>-->
+<!--              <modelNameSuffix>Resource</modelNameSuffix>-->
+<!--              <configOptions>-->
+<!--                <useSpringBoot3>true</useSpringBoot3>-->
+<!--                <packageName>${api.package}</packageName>-->
+<!--                <apiPackage>${api.package}</apiPackage>-->
+<!--                <modelPackage>${api.package}.resources</modelPackage>-->
+<!--                <dateLibrary>java8</dateLibrary>-->
+<!--                <delegatePattern>true</delegatePattern>-->
+<!--                <java8>true</java8>-->
+<!--                <useBeanValidation>true</useBeanValidation>-->
+<!--                <interfaceOnly>true</interfaceOnly>-->
+<!--              </configOptions>-->
+<!--              <typeMappings>-->
+<!--                <typeMapping>OffsetDateTime=java.time.LocalDateTime</typeMapping>-->
+<!--              </typeMappings>-->
+<!--            </configuration>-->
+<!--          </execution>-->
+
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <properties>
+    <openapi-generator.version>7.8.0</openapi-generator.version>
+    <jackson-databind-nullable.version>0.2.1</jackson-databind-nullable.version>
+    <springdoc.version>1.7.0</springdoc.version>
+    <api.package>com.tamer.api.v1</api.package>
+  </properties>
+
+</project>
