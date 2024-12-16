@@ -12,6 +12,7 @@
 		<module>design-patterns</module>
 		<module>circuit-breaker-demo</module>
 		<module>OpenAPIGenerator</module>
+		<module>graphql-demo</module>
 	</modules>
 
 	<properties>
