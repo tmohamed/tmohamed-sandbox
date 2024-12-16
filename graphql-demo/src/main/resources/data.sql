@@ -1,25 +1,25 @@
 -- Insert authors
-INSERT INTO authors (id, name, bio) VALUES
-(1, 'John Smith', 'An experienced Java developer and author of several books on programming.'),
-(2, 'Jane Doe', 'A passionate software engineer and Spring Boot expert.'),
-(3, 'James Brown', 'A full-stack developer specializing in GraphQL and modern web applications.'),
-(4, 'Joshua Bloch', 'A renowned author and Java expert known for "Effective Java".'),
-(5, 'Robert C. Martin', 'Famous for his books on clean code and architecture principles.'),
-(6, 'Jack Shirazi', 'An expert in performance tuning and optimization in Java.'),
-(7, 'Craig Walls', 'Author of popular Spring and microservices books.'),
-(8, 'Kathy Sierra', 'Known for her engaging and easy-to-read Java guides.'),
-(9, 'Herbert Schildt', 'A prolific author of programming guides and reference books.'),
-(10, 'Bruce Eckel', 'Expert in Java and object-oriented programming.'),
-(11, 'Adam Freeman', 'Author of books on Angular and other web development technologies.'),
-(12, 'James Cooper', 'Specializes in Java design patterns and enterprise application development.'),
-(13, 'Mario Gray', 'Expert in building RESTful APIs with Spring Framework.'),
-(14, 'Brian Goetz', 'Renowned for his expertise in Java concurrency.'),
-(15, 'Laurentiu Spilca', 'Author of books on Spring Security and Java enterprise applications.'),
-(16, 'Chris Richardson', 'A microservices guru and author of several architecture books.'),
-(17, 'Josh Long', 'Spring developer advocate and author of Cloud Native Java.'),
-(18, 'Raoul-Gabriel Urma', 'Expert in Java 8 and functional programming.'),
-(19, 'Jeanne Boyarsky', 'Java certification expert and prolific author.'),
-(20, 'Martin Fowler', 'Thought leader and author in the field of software design and architecture.');
+INSERT INTO authors (name, bio) VALUES
+('John Smith', 'An experienced Java developer and author of several books on programming.'),
+('Jane Doe', 'A passionate software engineer and Spring Boot expert.'),
+('James Brown', 'A full-stack developer specializing in GraphQL and modern web applications.'),
+('Joshua Bloch', 'A renowned author and Java expert known for "Effective Java".'),
+('Robert C. Martin', 'Famous for his books on clean code and architecture principles.'),
+('Jack Shirazi', 'An expert in performance tuning and optimization in Java.'),
+('Craig Walls', 'Author of popular Spring and microservices books.'),
+('Kathy Sierra', 'Known for her engaging and easy-to-read Java guides.'),
+('Herbert Schildt', 'A prolific author of programming guides and reference books.'),
+('Bruce Eckel', 'Expert in Java and object-oriented programming.'),
+('Adam Freeman', 'Author of books on Angular and other web development technologies.'),
+('James Cooper', 'Specializes in Java design patterns and enterprise application development.'),
+('Mario Gray', 'Expert in building RESTful APIs with Spring Framework.'),
+('Brian Goetz', 'Renowned for his expertise in Java concurrency.'),
+('Laurentiu Spilca', 'Author of books on Spring Security and Java enterprise applications.'),
+('Chris Richardson', 'A microservices guru and author of several architecture books.'),
+('Josh Long', 'Spring developer advocate and author of Cloud Native Java.'),
+('Raoul-Gabriel Urma', 'Expert in Java 8 and functional programming.'),
+('Jeanne Boyarsky', 'Java certification expert and prolific author.'),
+('Martin Fowler', 'Thought leader and author in the field of software design and architecture.');
 
 -- Insert books
 INSERT INTO books (title, author_id, published_year) VALUES

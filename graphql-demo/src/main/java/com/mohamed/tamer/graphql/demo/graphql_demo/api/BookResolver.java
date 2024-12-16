@@ -31,7 +31,7 @@ public class BookResolver {
     }
 
     @MutationMapping
-    public Book createBook(String title, Integer publishedYear, Long authorId) {
+    public Book createBook(@Argument String title, @Argument Integer publishedYear, @Argument Long authorId) {
         return bookService.createBook(title, publishedYear, authorId);
     }
 
