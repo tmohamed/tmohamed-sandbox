@@ -31,8 +31,6 @@ public class BookService {
         return bookRepository.findById(id).orElseThrow(() -> new RuntimeException("Book not found"));
     }
 
-
-
     public Book createBook(String title, Integer publishedYear, Long authorId) {
         Author author = authorRepository.findById(authorId).orElseThrow(() -> new RuntimeException("Author not found"));
         Book book = new Book();
@@ -40,5 +38,9 @@ public class BookService {
         book.setPublishedYear(publishedYear);
         book.setAuthor(author);
         return bookRepository.save(book);
+    }
+
+    public List<Book> getBooksByAuthorId(Long authorId) {
+        return bookRepository.findByAuthor_Id(authorId);
     }
 }

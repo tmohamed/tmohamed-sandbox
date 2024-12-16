@@ -1,5 +1,6 @@
 type Query {
     getBookById(id: ID!): Book
+    getBooksByAuthorId(authorId: Int): [Book]
     getAllBooks: [Book]
     getAllBooksPaginated(offset: Int, limit: Int): [Book]
 }

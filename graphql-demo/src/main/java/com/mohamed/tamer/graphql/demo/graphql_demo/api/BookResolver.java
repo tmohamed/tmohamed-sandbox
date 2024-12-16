@@ -35,4 +35,8 @@ public class BookResolver {
         return bookService.createBook(title, publishedYear, authorId);
     }
 
+    @QueryMapping
+    public List<Book> getBooksByAuthorId(@Argument Long authorId) {
+        return bookService.getBooksByAuthorId(authorId);
+    }
 }
