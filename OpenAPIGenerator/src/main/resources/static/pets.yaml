@@ -307,7 +307,7 @@ paths:
             type: string
       requestBody:
         content:
-          application/octet-stream:
+          multipart/form-data:
             schema:
               type: string
               format: binary
