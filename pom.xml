@@ -13,6 +13,7 @@
 		<module>circuit-breaker-demo</module>
 		<module>OpenAPIGenerator</module>
 		<module>graphql-demo</module>
+		<module>fundamentals-of-software-architecture-summary</module>
 	</modules>
 
 	<properties>
