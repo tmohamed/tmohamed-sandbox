@@ -24,6 +24,7 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
+import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
@@ -82,6 +83,7 @@ public class SecurityConfig {
                         .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
                         .redirectUri("https://www.manning.com/authorized")
                         .scope(OidcScopes.OPENID)
+                        // .clientSettings(ClientSettings.builder().requireProofKey(false).build()) // to disable PKCE enhancement
                         .build();
 
         return new InMemoryRegisteredClientRepository(registeredClient);
