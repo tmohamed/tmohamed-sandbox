@@ -14,7 +14,8 @@
 		<module>OpenAPIGenerator</module>
 		<module>graphql-demo</module>
 		<module>fundamentals-of-software-architecture-summary</module>
-	</modules>
+        <module>spring-authorization-server</module>
+    </modules>
 
 	<properties>
 		<maven.compiler.source>17</maven.compiler.source>
