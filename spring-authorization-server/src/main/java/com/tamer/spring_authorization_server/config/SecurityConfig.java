@@ -36,7 +36,7 @@ import java.security.interfaces.RSAPublicKey;
 import java.util.UUID;
 
 @Configuration
-public class SecurityConfit {
+public class SecurityConfig {
 
     @Bean
     @Order(1)
