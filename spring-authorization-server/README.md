@@ -2,9 +2,17 @@ Testing spring-authorization-server
 - Exploring authorization server exposed endpoints
     - curl -X GET http://localhost:8080/.well-known/openid-configuration
 - Authorization request
-  - http://localhost:8080/oauth2/authorize?response_type=code&client_id=client&scope=openid&redirect_uri=https://www.manning.com/authorized (hit this URL in the browser)
+- (hit this URL in the browser)
+  - http://localhost:8080/oauth2/authorize?response_type=code&client_id=client&scope=openid&redirect_uri=https://www.manning.com/authorized
   - Then application will forward the user to login page
   - After successful login, authorization server will send the authorization code to redirect_uri specified
     - https://www.manning.com/authorized?code=KxKP1504A8GQNb0HRvN4bPMIpgc9cuaYfe-Y-0qs2rpb7gNQOo-g1Ex0HvG0q7DD6lwZtsM0DL__2Cs5HkoshIm13X3E-ThdS6wrbIP1tsGYw1hsNbbqpuza4No1cYE8
   - Requesting access token
-    - curl -X POST http://localhost:8080/oauth2/token?client_id=client&redirect_uri=https://www.manning.com/authorized&grant_type=authorization_code&code=KxKP1504A8GQNb0HRvN4bPMIpgc9cuaYfe-Y-0qs2rpb7gNQOo-g1Ex0HvG0q7DD6lwZtsM0DL__2Cs5HkoshIm13X3E-ThdS6wrbIP1tsGYw1hsNbbqpuza4No1cYE8 \ --header 'Authorization: Basic Y2xpZW50OnNlY3JldA=='
+    - curl -X POST --location 'http://localhost:8080/oauth2/token' \
+      --header 'Content-Type: application/x-www-form-urlencoded' \
+      --header 'Authorization: Basic Y2xpZW50OnNlY3JldA==' \
+      --header 'Cookie: JSESSIONID=D5FE9D7E1FB0FBDB9473CC0C689CA8E5' \
+      --data-urlencode 'grant_type=authorization_code' \
+      --data-urlencode 'code=8YSa_SjBBH9b0hM1_GNJ3JtfpIbZ13fm6TeFWrxdG3vRZchwjiLYQCyL_2-tTzcdVFqLSACMTgd-JWdTUOztKjXMYlC7prCZYc4BhJpGwIWgceM9DjQ251RRZMx7jO6H' \
+      --data-urlencode 'redirect_uri=https://www.manning.com/authorized' \
+      --data-urlencode 'client_id=client'
