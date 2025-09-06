@@ -21,4 +21,4 @@ Testing spring-authorization-server
     --header 'Content-Type: application/x-www-form-urlencoded' \
     --header 'Authorization: Basic Y2xpZW50LWNyZWRlbnRpYWxzLWNsaWVudDpjbGllbnQtY3JlZGVudGlhbHMtY2xpZW50LXNlY3JldA==' \
     --data-urlencode 'grant_type=client_credentials' \
-    --data-urlencode 'client_id=client-credentials-client'
+    --data-urlencode 'scope=CUSTOM'
