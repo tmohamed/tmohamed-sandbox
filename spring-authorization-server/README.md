@@ -13,8 +13,7 @@ Testing spring-authorization-server
       --header 'Authorization: Basic YXV0aG9yaXphdGlvbi1jb2RlLWNsaWVudDphdXRob3JpemF0aW9uLWNvZGUtY2xpZW50LXNlY3JldA==' \
       --data-urlencode 'grant_type=authorization_code' \
       --data-urlencode 'code=JaJkLmUEAhq9iee0k_XvzvgkrYqFp1OrJve7OqwrslivjJp8IrvFS6hsnUbuJnEAKy0NpoRXCk3FArA6OvMUKYvPzJ5SRbx0AP3DFn_g7grtCQLt0uSJHUEMmXxTZrnd' \
-      --data-urlencode 'redirect_uri=https://www.manning.com/authorized' \
-      --data-urlencode 'client_id=authorization-code-client'
+      --data-urlencode 'redirect_uri=https://www.manning.com/authorized'
 
 - Getting Access token using Client_Credentials grant type
   - curl -X POST --location 'http://localhost:8080/oauth2/token' \
