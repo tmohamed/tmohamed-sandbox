@@ -73,20 +73,28 @@ public class SecurityConfig {
 
     @Bean
     public RegisteredClientRepository registeredClientRepository(){
-        RegisteredClient registeredClient =
+        RegisteredClient authorizationCodeClient =
                 RegisteredClient.withId(UUID.randomUUID().toString())
-                        .clientId("client")
-                        .clientSecret("secret")
+                        .clientId("authorization-code-client")
+                        .clientSecret("authorization-code-client-secret")
                         .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                         .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-                        .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
                         .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
                         .redirectUri("https://www.manning.com/authorized")
                         .scope(OidcScopes.OPENID)
                         // .clientSettings(ClientSettings.builder().requireProofKey(false).build()) // to disable PKCE enhancement
                         .build();
 
-        return new InMemoryRegisteredClientRepository(registeredClient);
+        RegisteredClient clientCredentialsClient =
+                RegisteredClient.withId(UUID.randomUUID().toString())
+                        .clientId("client-credentials-client")
+                        .clientSecret("client-credentials-client-secret")
+                        .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+                        .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+                        .scope("CUSTOM")
+                        .build();
+
+        return new InMemoryRegisteredClientRepository(authorizationCodeClient, clientCredentialsClient);
     }
 
     @Bean
