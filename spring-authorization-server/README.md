@@ -2,18 +2,29 @@ Testing spring-authorization-server
 - Exploring authorization server exposed endpoints
     - curl -X GET http://localhost:8080/.well-known/openid-configuration
 - Authorization request
-- (hit this URL in the browser)
-  - http://localhost:8080/oauth2/authorize?response_type=code&client_id=authorization-code-client&scope=openid&redirect_uri=https://www.manning.com/authorized
-  - Then application will forward the user to login page
-  - After successful login, authorization server will send the authorization code to redirect_uri specified
-    - https://www.manning.com/authorized?code=KxKP1504A8GQNb0HRvN4bPMIpgc9cuaYfe-Y-0qs2rpb7gNQOo-g1Ex0HvG0q7DD6lwZtsM0DL__2Cs5HkoshIm13X3E-ThdS6wrbIP1tsGYw1hsNbbqpuza4No1cYE8
+  - (Authorization Code Grant Type)
+    - http://localhost:8080/oauth2/authorize?response_type=code&client_id=authorization-code-client&scope=openid&redirect_uri=https://www.manning.com/authorized
+    - Then application will forward the user to login page
+    - After successful login, authorization server will send the authorization code to redirect_uri specified
+      - https://www.manning.com/authorized?code=KxKP1504A8GQNb0HRvN4bPMIpgc9cuaYfe-Y-0qs2rpb7gNQOo-g1Ex0HvG0q7DD6lwZtsM0DL__2Cs5HkoshIm13X3E-ThdS6wrbIP1tsGYw1hsNbbqpuza4No1cYE8
+    - Requesting access token
+      - curl -X POST --location 'http://localhost:8080/oauth2/token' \
+        --header 'Content-Type: application/x-www-form-urlencoded' \
+        --header 'Authorization: Basic YXV0aG9yaXphdGlvbi1jb2RlLWNsaWVudDphdXRob3JpemF0aW9uLWNvZGUtY2xpZW50LXNlY3JldA==' \
+        --data-urlencode 'grant_type=authorization_code' \
+        --data-urlencode 'code=JaJkLmUEAhq9iee0k_XvzvgkrYqFp1OrJve7OqwrslivjJp8IrvFS6hsnUbuJnEAKy0NpoRXCk3FArA6OvMUKYvPzJ5SRbx0AP3DFn_g7grtCQLt0uSJHUEMmXxTZrnd' \
+        --data-urlencode 'redirect_uri=https://www.manning.com/authorized'
+
+- (Authorization Code Grant Type with PKCE)
+    - http://localhost:8080/oauth2/authorize?response_type=code&client_id=authorization-code-client&scope=openid&redirect_uri=https://www.manning.com/authorized&code_challenge_method=S256&code_challenge=UhXbkpOnK0uVWbz3ZEqAcFzwXgMiKKjnz8smH4P8Ddg=
+    - 
   - Requesting access token
-    - curl -X POST --location 'http://localhost:8080/oauth2/token' \
-      --header 'Content-Type: application/x-www-form-urlencoded' \
-      --header 'Authorization: Basic YXV0aG9yaXphdGlvbi1jb2RlLWNsaWVudDphdXRob3JpemF0aW9uLWNvZGUtY2xpZW50LXNlY3JldA==' \
-      --data-urlencode 'grant_type=authorization_code' \
-      --data-urlencode 'code=JaJkLmUEAhq9iee0k_XvzvgkrYqFp1OrJve7OqwrslivjJp8IrvFS6hsnUbuJnEAKy0NpoRXCk3FArA6OvMUKYvPzJ5SRbx0AP3DFn_g7grtCQLt0uSJHUEMmXxTZrnd' \
-      --data-urlencode 'redirect_uri=https://www.manning.com/authorized'
+      - curl -X POST --location 'http://localhost:8080/oauth2/token' \
+        --header 'Content-Type: application/x-www-form-urlencoded' \
+        --header 'Authorization: Basic YXV0aG9yaXphdGlvbi1jb2RlLWNsaWVudDphdXRob3JpemF0aW9uLWNvZGUtY2xpZW50LXNlY3JldA==' \
+        --data-urlencode 'grant_type=authorization_code' \
+        --data-urlencode 'code=JaJkLmUEAhq9iee0k_XvzvgkrYqFp1OrJve7OqwrslivjJp8IrvFS6hsnUbuJnEAKy0NpoRXCk3FArA6OvMUKYvPzJ5SRbx0AP3DFn_g7grtCQLt0uSJHUEMmXxTZrnd' \
+        --data-urlencode 'redirect_uri=https://www.manning.com/authorized'
 
 - Getting Access token using Client_Credentials grant type
   - curl -X POST --location 'http://localhost:8080/oauth2/token' \
