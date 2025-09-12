@@ -15,6 +15,7 @@
 		<module>graphql-demo</module>
 		<module>fundamentals-of-software-architecture-summary</module>
         <module>spring-authorization-server</module>
+        <module>sandbox</module>
     </modules>
 
 	<properties>
