@@ -16,7 +16,7 @@
 		<module>fundamentals-of-software-architecture-summary</module>
         <module>spring-authorization-server</module>
         <module>sandbox</module>
-        <module>spring-resource-server</module>
+        <module>spring-resource-server-non-opaque-tokens</module>
     </modules>
 
 	<properties>
