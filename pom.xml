@@ -17,6 +17,7 @@
         <module>spring-authorization-server</module>
         <module>sandbox</module>
         <module>spring-resource-server-non-opaque-tokens</module>
+        <module>spring-resource-server-opaque-tokens</module>
     </modules>
 
 	<properties>

@@ -25,6 +25,8 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
+import org.springframework.security.oauth2.server.authorization.settings.OAuth2TokenFormat;
+import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
 import org.springframework.security.oauth2.server.authorization.token.JwtEncodingContext;
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenCustomizer;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
@@ -36,6 +38,7 @@ import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
+import java.time.Duration;
 import java.util.UUID;
 
 @Configuration
@@ -96,7 +99,31 @@ public class SecurityConfig {
                         .scope("CUSTOM")
                         .build();
 
-        return new InMemoryRegisteredClientRepository(authorizationCodeClient, clientCredentialsClient);
+        // Client (used by Client application) to obtain Opaque access tokens
+        RegisteredClient opaqueClientCredentialsClient =
+                RegisteredClient.withId(UUID.randomUUID().toString())
+                        .clientId("opaque-client-credentials-client")
+                        .clientSecret("opaque-client-credentials-client-secret")
+                        .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+                        .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+                        .tokenSettings(TokenSettings.builder().accessTokenFormat(OAuth2TokenFormat.REFERENCE)
+                                .accessTokenTimeToLive(Duration.ofHours(12)).build())
+                        .scope("CUSTOM")
+                        .build();
+
+        // Client (used by resource server) to introspect Opaque tokens
+        RegisteredClient opaqueResourceServer =
+                RegisteredClient.withId(UUID.randomUUID().toString())
+                        .clientId("opaque-resource_server")
+                        .clientSecret("opaque-resource_server_secret")
+                        .clientAuthenticationMethod(
+                                ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+                        .authorizationGrantType(
+                                AuthorizationGrantType.CLIENT_CREDENTIALS)
+                        .build();
+
+        return new InMemoryRegisteredClientRepository(authorizationCodeClient, clientCredentialsClient,
+                opaqueClientCredentialsClient, opaqueResourceServer);
     }
 
     @Bean
