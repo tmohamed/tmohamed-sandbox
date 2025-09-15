@@ -1,34 +1,9 @@
-Testing spring-authorization-server
-- Exploring authorization server exposed endpoints
-    - curl -X GET http://localhost:8080/.well-known/openid-configuration
-- Authorization request
-  - (Authorization Code Grant Type)
-    - http://localhost:8080/oauth2/authorize?response_type=code&client_id=authorization-code-client&scope=openid&redirect_uri=https://www.manning.com/authorized
-    - Then application will forward the user to login page
-    - After successful login, authorization server will send the authorization code to redirect_uri specified
-      - https://www.manning.com/authorized?code=KxKP1504A8GQNb0HRvN4bPMIpgc9cuaYfe-Y-0qs2rpb7gNQOo-g1Ex0HvG0q7DD6lwZtsM0DL__2Cs5HkoshIm13X3E-ThdS6wrbIP1tsGYw1hsNbbqpuza4No1cYE8
-    - Requesting access token
-      - curl -X POST --location 'http://localhost:8080/oauth2/token' \
-        --header 'Content-Type: application/x-www-form-urlencoded' \
-        --header 'Authorization: Basic YXV0aG9yaXphdGlvbi1jb2RlLWNsaWVudDphdXRob3JpemF0aW9uLWNvZGUtY2xpZW50LXNlY3JldA==' \
-        --data-urlencode 'grant_type=authorization_code' \
-        --data-urlencode 'code=JaJkLmUEAhq9iee0k_XvzvgkrYqFp1OrJve7OqwrslivjJp8IrvFS6hsnUbuJnEAKy0NpoRXCk3FArA6OvMUKYvPzJ5SRbx0AP3DFn_g7grtCQLt0uSJHUEMmXxTZrnd' \
-        --data-urlencode 'redirect_uri=https://www.manning.com/authorized'
-
-- (Authorization Code Grant Type with PKCE)
-    - http://localhost:8080/oauth2/authorize?response_type=code&client_id=authorization-code-client&scope=openid&redirect_uri=https://www.manning.com/authorized&code_challenge_method=S256&code_challenge=9s1lwRgG68UI-wfRGesdHQlh5_zTl2LFP3SvZxFXf-c
-  - Requesting access token
-      - curl -X POST --location 'http://localhost:8080/oauth2/token' \
-        --header 'Content-Type: application/x-www-form-urlencoded' \
-        --header 'Authorization: Basic YXV0aG9yaXphdGlvbi1jb2RlLWNsaWVudDphdXRob3JpemF0aW9uLWNvZGUtY2xpZW50LXNlY3JldA==' \
-        --data-urlencode 'grant_type=authorization_code' \
-        --data-urlencode 'code=oAzOo4HyHbiPlmKRWovpMUFUaWkbY1xMhm5DK4qGL5119UOblYLj6EcrqmYPCnT5UYRW4IvV1PcBkUxIri0b_m9MHel_HyF3-mkXDCRAeMB6tl-1yYHNPe1AeKEbKBzR' \
-        --data-urlencode 'code_verifier=_4-v6gkhZDkkpOq-D4Tq5M7o0DHyF2tVmRds2kCLrZQ' \
-        --data-urlencode 'redirect_uri=https://www.manning.com/authorized'
-
+Testing spring-authorization-server with Opaque access tokens
+=======================================================
 - Getting Access token using Client_Credentials grant type
-  - curl -X POST --location 'http://localhost:8080/oauth2/token' \
-    --header 'Content-Type: application/x-www-form-urlencoded' \
-    --header 'Authorization: Basic Y2xpZW50LWNyZWRlbnRpYWxzLWNsaWVudDpjbGllbnQtY3JlZGVudGlhbHMtY2xpZW50LXNlY3JldA==' \
-    --data-urlencode 'grant_type=client_credentials' \
-    --data-urlencode 'scope=CUSTOM'
+  curl --location 'http://localhost:8080/oauth2/token' \
+  --header 'Content-Type: application/x-www-form-urlencoded' \
+  --header 'Authorization: Basic Y2xpZW50OnNlY3JldA==' \
+  --header 'Cookie: JSESSIONID=BF3A8F31968462C4EC9D7094C10DF9F7' \
+  --data-urlencode 'grant_type=client_credentials' \
+  --data-urlencode 'scope=CUSTOM' 
