@@ -1,13 +1,13 @@
-package com.tamer.spring_authorization_server;
+package com.tamer.oauth2_client_login;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Tenant2OpaqueAuthorizationServerApplication {
+public class OAuth2ClientLoginApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Tenant2OpaqueAuthorizationServerApplication.class, args);
+		SpringApplication.run(OAuth2ClientLoginApplication.class, args);
 	}
 
 }

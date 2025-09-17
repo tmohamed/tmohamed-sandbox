@@ -1,4 +1,4 @@
-package com.tamer.spring_authorization_server.config;
+package com.tamer.oauth2_client_login.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

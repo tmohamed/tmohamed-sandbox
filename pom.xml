@@ -21,6 +21,7 @@
         <module>multitenant-resource-server</module>
         <module>tenant-1-jwt-authorization-server</module>
         <module>tenant-2-opaque-authorization-server</module>
+        <module>oauth2-client-login</module>
     </modules>
 
 	<properties>

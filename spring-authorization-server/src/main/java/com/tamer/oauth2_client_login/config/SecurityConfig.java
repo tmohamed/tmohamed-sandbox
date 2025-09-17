@@ -1,4 +1,4 @@
-package com.tamer.spring_authorization_server.config;
+package com.tamer.oauth2_client_login.config;
 
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
@@ -64,7 +64,7 @@ public class SecurityConfig {
     @Bean
     public UserDetailsService userDetailsService(){
         UserDetails userDetails  = User.withUsername("tamer")
-                .password("password")
+                .password("tamer")
                 .roles("USER")
                 .build();
 
@@ -81,11 +81,12 @@ public class SecurityConfig {
         RegisteredClient authorizationCodeClient =
                 RegisteredClient.withId(UUID.randomUUID().toString())
                         .clientId("authorization-code-client")
-                        .clientSecret("authorization-code-client-secret")
+                        .clientSecret("{noop}secret")
                         .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                         .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                         .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
                         .redirectUri("https://www.manning.com/authorized")
+                        .redirectUri("http://localhost:9090/login/oauth2/code/spring-authorization-server")
                         .scope(OidcScopes.OPENID)
                         // .clientSettings(ClientSettings.builder().requireProofKey(false).build()) // to disable PKCE enhancement
                         .build();
@@ -124,6 +125,8 @@ public class SecurityConfig {
 
         return new InMemoryRegisteredClientRepository(authorizationCodeClient, clientCredentialsClient,
                 opaqueClientCredentialsClient, opaqueResourceServer);
+
+//        return new InMemoryRegisteredClientRepository(authorizationCodeClient);
     }
 
     @Bean
