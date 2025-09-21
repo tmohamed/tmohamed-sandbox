@@ -1,4 +1,4 @@
-package com.tamer.oauth2_client_login;
+package com.tamer.oauth2_client;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

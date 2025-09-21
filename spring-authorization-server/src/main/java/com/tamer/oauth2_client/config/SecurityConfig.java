@@ -1,4 +1,4 @@
-package com.tamer.oauth2_client_login.config;
+package com.tamer.oauth2_client.config;
 
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
