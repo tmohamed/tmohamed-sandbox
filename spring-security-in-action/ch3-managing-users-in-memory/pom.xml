@@ -8,7 +8,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <artifactId>ch3-managing-users-sandbox</artifactId>
+    <artifactId>ch3-managing-users-in-memory</artifactId>
     <name>Archetype - ch3-managing-users-sandbox</name>
     <url>http://maven.apache.org</url>
 

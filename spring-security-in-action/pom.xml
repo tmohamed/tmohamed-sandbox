@@ -9,7 +9,8 @@
     <artifactId>spring-security-in-action</artifactId>
     <name>Archetype - spring-security-in-action</name>
     <modules>
-        <module>ch3-managing-users-sandbox</module>
+        <module>ch3-managing-users-in-memory</module>
+        <module>ch3-managing-users-jdbc</module>
     </modules>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
