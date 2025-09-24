@@ -11,6 +11,7 @@
     <modules>
         <module>ch3-managing-users-in-memory</module>
         <module>ch3-managing-users-jdbc</module>
+        <module>ch5-filters</module>
     </modules>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>

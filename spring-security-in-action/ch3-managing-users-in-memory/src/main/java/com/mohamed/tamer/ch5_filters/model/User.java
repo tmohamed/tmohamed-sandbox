@@ -1,4 +1,4 @@
-package com.mohamed.tamer.ch3_managing_users_sandbox.model;
+package com.mohamed.tamer.ch5_filters.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,4 +1,4 @@
-package com.mohamed.tamer.ch3_managing_users_sandbox.config;
+package com.mohamed.tamer.ch5_filters.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
