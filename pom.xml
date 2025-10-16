@@ -23,6 +23,7 @@
         <module>tenant-2-opaque-authorization-server</module>
         <module>oauth2-client-login</module>
         <module>spring-authorization-client</module>
+        <module>spring-security-in-action-second-editon-summary</module>
     </modules>
 
 	<properties>
