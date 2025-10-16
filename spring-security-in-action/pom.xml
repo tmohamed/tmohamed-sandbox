@@ -1,0 +1,18 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.tmohamed</groupId>
+        <artifactId>tmohamed-sandbox</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <artifactId>spring-security-in-action</artifactId>
+    <name>Archetype - spring-security-in-action</name>
+    <modules>
+        <module>ch3-managing-users-in-memory</module>
+        <module>ch3-managing-users-jdbc</module>
+        <module>ch5-filters</module>
+    </modules>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+</project>
