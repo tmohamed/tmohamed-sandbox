@@ -25,6 +25,7 @@
         <module>spring-authorization-client</module>
         <module>spring-security-in-action</module>
         <module>spring-security-in-action-second-editon-summary</module>
+        <module>spring-security-in-action/ch11-hands-on</module>
     </modules>
 
 	<properties>
