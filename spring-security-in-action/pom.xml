@@ -12,6 +12,7 @@
         <module>ch3-managing-users-in-memory</module>
         <module>ch3-managing-users-jdbc</module>
         <module>ch5-filters</module>
+        <module>ch11-authentication-server</module>
     </modules>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
