@@ -3,7 +3,7 @@ create table if not exists authentication_db.users (
     password TEXT not null
 );
 
-create table if not exists authentication_db.otp (
+create table if not exists authentication_db.otps (
     username VARCHAR(45) not null,
     code VARCHAR(45) null,
     primary key (username)
