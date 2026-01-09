@@ -1,4 +1,4 @@
-package com.mohamed.tamer.ch11_authentication_server;
+package com.mohamed.tamer.ch11_business_logic_server;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
