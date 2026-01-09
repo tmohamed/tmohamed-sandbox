@@ -13,6 +13,7 @@
         <module>ch3-managing-users-jdbc</module>
         <module>ch5-filters</module>
         <module>ch11-authentication-server</module>
+        <module>ch11-business-logic-server</module>
     </modules>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
