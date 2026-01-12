@@ -59,7 +59,7 @@ curl -s -X POST http://localhost:9090/login \
 -H "code: 1234"
 
 3) Call a protected business endpoint on this service
-- Example protected endpoint (see `controller/TestController`): `GET /api/test` (hosted by this service)
+- Example protected endpoint (see `controller/TestController`): `GET /test` (hosted by this service)
 - Requires header: `Authorization: Bearer <token>`
 
 cURL (using token from login):
