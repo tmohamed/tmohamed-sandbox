@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: file-upload-client
+
+  grpc:
+    client:
+      channel:
+        file_upload:
+          target: "static://localhost:9090"
