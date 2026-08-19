@@ -6,6 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.grpc.client.GrpcChannelFactory;
 
 import java.io.File;
 
@@ -13,6 +14,7 @@ import java.io.File;
 public class FileUploadClientApplication {
 
 	@Autowired private FileUploadClientService fileUploadClientService;
+	@Autowired private HelloClientService helloClientService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(FileUploadClientApplication.class, args);
@@ -22,9 +24,13 @@ public class FileUploadClientApplication {
 	CommandLineRunner runner() {
 		return args -> {
 
-			File file = new File("/Users/tamer-abdeltawab/Desktop/TEMP/8-2026/13/test.png");
-			FileUploadResponse response = fileUploadClientService.uploadFile(file).join();
-			System.out.println("Upload complete! Server status: " + response.getStatus());
+//			File file = new File("/Users/tamer-abdeltawab/Desktop/TEMP/8-2026/13/test.png");
+//			FileUploadResponse response = fileUploadClientService.uploadFile(file).join();
+//			System.out.println("Upload complete! Server status: " + response.getStatus());
+
+			helloClientService.sayHello("Tamer Mohamed");
+			System.out.println("Hello request sent! Waiting for response...");
+
 		};
 	}
 }
