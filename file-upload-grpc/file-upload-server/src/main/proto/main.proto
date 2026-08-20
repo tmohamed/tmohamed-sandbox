@@ -3,6 +3,7 @@ package com.mohamed.tamer.main;
 
 import public "services/file_upload.proto";
 import public "services/hello.proto";
+import public "services/file_upload_with_timeout.proto";
 
 
 

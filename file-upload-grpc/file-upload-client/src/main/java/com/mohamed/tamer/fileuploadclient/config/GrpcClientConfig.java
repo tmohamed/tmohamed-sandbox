@@ -1,5 +1,6 @@
 package com.mohamed.tamer.fileuploadclient.config;
 
+import com.mohamed.tamer.file_upload_with_timeout.FileUploadWithTimeoutServiceGrpc;
 import com.mohamed.tamer.fileupload.grpc.FileUploadServiceGrpc;
 import com.mohamed.tamer.hello.grpc.HelloServiceGrpc;
 import io.grpc.Channel;
@@ -14,6 +15,12 @@ public class GrpcClientConfig {
     public FileUploadServiceGrpc.FileUploadServiceStub fileUploadServiceStub(GrpcChannelFactory channelFactory){
         Channel channel = channelFactory.createChannel("file_upload");
         return FileUploadServiceGrpc.newStub(channel);
+    }
+
+    @Bean
+    public FileUploadWithTimeoutServiceGrpc.FileUploadWithTimeoutServiceStub fileUploadWithTimeoutServiceStub(GrpcChannelFactory channelFactory){
+        Channel channel = channelFactory.createChannel("file_upload");
+        return FileUploadWithTimeoutServiceGrpc.newStub(channel);
     }
 
     @Bean
