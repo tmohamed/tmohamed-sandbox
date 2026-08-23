@@ -24,7 +24,7 @@ public class FileUploadWithTimeoutClientService {
 
     public CompletableFuture<FileUploadWithTimeoutResponse> uploadFileWithTimeout(File file) {
 
-        var timedStub = fileUploadServiceStub.withDeadlineAfter(3, TimeUnit.SECONDS);
+        var timedStub = fileUploadServiceStub.withDeadlineAfter(15, TimeUnit.SECONDS);
 
         CompletableFuture<FileUploadWithTimeoutResponse> futureResponse = new CompletableFuture<>();
 

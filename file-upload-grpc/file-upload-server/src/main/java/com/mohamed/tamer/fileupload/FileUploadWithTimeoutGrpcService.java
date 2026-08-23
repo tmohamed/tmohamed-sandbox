@@ -17,7 +17,7 @@ import java.nio.file.Paths;
 @GrpcService
 public class FileUploadWithTimeoutGrpcService extends FileUploadWithTimeoutServiceGrpc.FileUploadWithTimeoutServiceImplBase {
 
-    private static final Path UPLOAD_DIR = Paths.get("/Users/tamer-abdeltawab/Desktop/TEMP/8-2026/13/grpc-uploads");
+    private static final Path UPLOAD_DIR = Paths.get("/Users/tamer-abdeltawab/Desktop/TEMP/8-2026/23/grpc-uploads");
 
     public FileUploadWithTimeoutGrpcService() {
         UPLOAD_DIR.toFile().mkdirs();
