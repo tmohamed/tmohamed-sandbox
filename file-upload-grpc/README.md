@@ -208,7 +208,7 @@ public class GreeterClientApplication {
 }
 ```
 
-Second, point the `greeter` channel at the server in `application.yaml`:
+Second, point the `greeter` channel at the server in `application.yml`:
 
 ```yaml
 spring:

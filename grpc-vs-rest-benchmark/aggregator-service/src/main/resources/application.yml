@@ -1,0 +1,17 @@
+server:
+  port: 8080
+
+grpc:
+  client:
+    service-a:
+      address: 'static://service-a:9091'
+      negotiation-type: plaintext
+    service-b:
+      address: 'static://service-b:9092'
+      negotiation-type: plaintext
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
