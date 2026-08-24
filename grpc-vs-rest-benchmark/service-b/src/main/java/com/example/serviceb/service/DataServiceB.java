@@ -1,7 +1,7 @@
 package com.example.serviceb.service;
 
-import com.example.servicea.grpc.generated.DataItem;
-import com.example.servicea.grpc.generated.DataResponse;
+import com.example.serviceb.grpc.generated.DataItem;
+import com.example.serviceb.grpc.generated.DataResponse;
 import com.example.serviceb.dto.DataItemDto;
 import com.example.serviceb.dto.DataResponseDto;
 import org.springframework.stereotype.Service;

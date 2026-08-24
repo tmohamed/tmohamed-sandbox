@@ -3,15 +3,20 @@ server:
 
 grpc:
   client:
-    service-a:
-      address: 'static://service-a:9091'
-      negotiation-type: plaintext
-    service-b:
-      address: 'static://service-b:9092'
-      negotiation-type: plaintext
+    channels:
+      service-a:
+        address: 'static://service-a:9091'
+      service-b:
+        address: 'static://service-b:9092'
 
 management:
   endpoints:
     web:
       exposure:
         include: health,info,prometheus
+
+serviceA:
+  uri: 'http://service-a:8081/api/v1/data/'
+
+serviceB:
+  uri: 'http://service-b:8082/api/v1/data/'

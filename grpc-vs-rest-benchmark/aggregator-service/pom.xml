@@ -16,13 +16,6 @@
     </properties>
 
     <dependencies>
-        <!-- Shared Protobuf Contract Module -->
-        <dependency>
-            <groupId>com.example</groupId>
-            <artifactId>common-proto</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
         <!-- Spring Boot Web + WebFlux (for non-blocking WebClient REST requests) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -62,6 +55,11 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>io.github.ascopes</groupId>
+                <artifactId>protobuf-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

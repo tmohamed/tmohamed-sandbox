@@ -1,8 +1,8 @@
 package com.example.serviceb.grpc;
 
-import com.example.servicea.grpc.generated.DataRequest;
-import com.example.servicea.grpc.generated.DataResponse;
-import com.example.servicea.grpc.generated.DataServiceGrpc;
+import com.example.serviceb.grpc.generated.DataRequest;
+import com.example.serviceb.grpc.generated.DataResponse;
+import com.example.serviceb.grpc.generated.DataServiceGrpc;
 import com.example.serviceb.service.DataServiceB;
 import io.grpc.stub.StreamObserver;
 import org.springframework.grpc.server.service.GrpcService;
