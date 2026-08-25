@@ -13,10 +13,14 @@ import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @RestController
 public class AggregatorController {
     private final WebClient webClient;
+
+    private final ExecutorService executor = Executors.newCachedThreadPool();
 
     @Autowired
     private com.example.servicea.grpc.generated.DataServiceGrpc.DataServiceBlockingStub serviceAStub;
@@ -62,8 +66,8 @@ public class AggregatorController {
         com.example.servicea.grpc.generated.DataRequest requestA = com.example.servicea.grpc.generated.DataRequest.newBuilder().setRequestId(id).build();
         com.example.serviceb.grpc.generated.DataRequest requestB = com.example.serviceb.grpc.generated.DataRequest.newBuilder().setRequestId(id).build();
 
-        CompletableFuture<com.example.servicea.grpc.generated.DataResponse> futureA = CompletableFuture.supplyAsync(() -> serviceAStub.getData(requestA));
-        CompletableFuture<com.example.serviceb.grpc.generated.DataResponse> futureB = CompletableFuture.supplyAsync(() -> serviceBStub.getData(requestB));
+        CompletableFuture<com.example.servicea.grpc.generated.DataResponse> futureA = CompletableFuture.supplyAsync(() -> serviceAStub.getData(requestA), executor);
+        CompletableFuture<com.example.serviceb.grpc.generated.DataResponse> futureB = CompletableFuture.supplyAsync(() -> serviceBStub.getData(requestB), executor);
 
         return CompletableFuture.allOf(futureA, futureB).thenApply(v -> {
             DataResponseDto resA = mapToDto(futureA.join());

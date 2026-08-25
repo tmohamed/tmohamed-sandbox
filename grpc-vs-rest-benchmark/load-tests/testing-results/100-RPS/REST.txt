@@ -1,0 +1,18 @@
+========================================================================================================================
+---- Global Information -------------------------------------------------------------|---Total---|-----OK----|----KO----
+> request count                                                                      |     7,800 |     7,800 |         -
+> min response time (ms)                                                             |         3 |         3 |         -
+> max response time (ms)                                                             |     4,085 |     4,085 |         -
+> mean response time (ms)                                                            |        20 |        20 |         -
+> response time std deviation (ms)                                                   |       183 |       183 |         -
+> response time 50th percentile (ms)                                                 |         5 |         5 |         -
+> response time 75th percentile (ms)                                                 |         6 |         6 |         -
+> response time 95th percentile (ms)                                                 |        19 |        19 |         -
+> response time 99th percentile (ms)                                                 |       141 |       141 |         -
+> mean throughput (rps)                                                              |     74.29 |     74.29 |         -
+---- Response Time Distribution ----------------------------------------------------------------------------------------
+> OK: t < 800 ms                                                                                          7,763 (99.53%)
+> OK: 800 ms <= t < 1200 ms                                                                                   7  (0.09%)
+> OK: t >= 1200 ms                                                                                           30  (0.38%)
+> KO                                                                                                          0     (0%)
+========================================================================================================================
