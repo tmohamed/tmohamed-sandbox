@@ -1,13 +1,14 @@
 server:
   port: 8080
 
-grpc:
-  client:
-    channels:
-      service-a:
-        address: 'static://service-a:9091'
-      service-b:
-        address: 'static://service-b:9092'
+spring:
+  grpc:
+    client:
+      channel:
+        servicea:
+          target: "service-a:9091" # either using dns prefix or not, both are valid
+        serviceb:
+          target: "dns:///service-b:9092"
 
 management:
   endpoints:
