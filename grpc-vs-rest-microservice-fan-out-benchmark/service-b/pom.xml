@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.example</groupId>
-        <artifactId>grpc-vs-rest-benchmark</artifactId>
+        <artifactId>grpc-vs-rest-microservice-fan-out-benchmark</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>service-a</artifactId>
-    <name>service-a</name>
+    <artifactId>service-b</artifactId>
+    <name>service-b</name>
 
     <dependencies>
         <dependency>
@@ -51,4 +51,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>

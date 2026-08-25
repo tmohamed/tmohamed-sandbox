@@ -9,7 +9,7 @@
     </parent>
 
     <groupId>com.example</groupId>
-    <artifactId>grpc-vs-rest-benchmark</artifactId>
+    <artifactId>grpc-vs-rest-microservice-fan-out-benchmark</artifactId>
     <name>grpc-vs-rest-benchmark</name>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
