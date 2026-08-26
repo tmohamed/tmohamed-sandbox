@@ -9,8 +9,8 @@
     </parent>
 
     <groupId>com.example</groupId>
-    <artifactId>grpc-vs-rest-microservice-fan-out-benchmark</artifactId>
-    <name>grpc-vs-rest-benchmark</name>
+    <artifactId>grpc-vs-rest-hl7-load-balancer-benchmark</artifactId>
+    <name>grpc-vs-rest-hl7-load-balancer-benchmark</name>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
@@ -23,9 +23,7 @@
 
     <modules>
         <module>service-a</module>
-        <module>service-b</module>
         <module>aggregator-service</module>
-        <module>load-tests</module>
     </modules>
 
 </project>

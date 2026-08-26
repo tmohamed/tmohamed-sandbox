@@ -1,0 +1,33 @@
+
+mvn clean package -DskipTests
+
+mvn clean package -DskipTests && docker compose build --no-cache && docker compose up
+
+start docker deamon
+minikube start --cpus=4 --memory=8192
+eval $(minikube docker-env)
+
+
+# 1. Build Maven JARs
+mvn clean package -DskipTests
+
+# 2. Build Docker Images (Targeting Minikube Context)
+docker build -t aggregator-service:1.0.0 ./aggregator-service
+docker build -t service-a:1.0.0 ./service-a
+
+# Minikube will be used to build images instead of Docker commands above
+# 2. Build images directly inside Minikube
+minikube image build -t aggregator-service:1.0.0 ./aggregator-service
+minikube image build -t service-a:1.0.0 ./service-a
+
+kubectl apply -f k8s/
+kubectl get pods -w
+
+
+kubectl port-forward svc/aggregator-service 8080:8080
+
+kubectl logs -l app=service-a --max-log-requests=10 -f --tail=1
+
+
+for i in {1..9}; do curl -s http://localhost:8080/benchmark/grpc/1; echo ""; done
+

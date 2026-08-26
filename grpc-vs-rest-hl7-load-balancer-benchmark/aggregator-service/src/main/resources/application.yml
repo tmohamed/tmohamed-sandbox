@@ -1,0 +1,10 @@
+server:
+  port: 8080
+
+spring:
+  grpc:
+    client:
+      channel:
+        servicea:
+          target: "service-a-headless:9091" # either using dns prefix or not, both are valid
+          default-load-balancing-policy: 'round_robin'
