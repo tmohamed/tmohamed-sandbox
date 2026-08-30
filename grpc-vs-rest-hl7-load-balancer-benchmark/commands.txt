@@ -43,3 +43,24 @@ for i in (seq 1 9); curl -s http://localhost:8080/benchmark/grpc/1; echo ""; end
 # 2. Test gRPC
 mvn test-compile gatling:test -pl load-tests -Dgatling.simulationClass=com.example.benchmark.GrpcSimulation
 
+
+# Get the Direct Minikube Endpoint
+minikube ip
+
+# If using the Docker driver on macOS where minikube ip routes through Docker's internal bridge network, run:
+minikube service aggregator-service --url
+
+
+# Run In-Cluster Load Testing
+
+# Test 150 RPS (6,000 calls over 30s)
+kubectl run load-generator --image=fortio/fortio --rm -it -- load -c 10 -qps 150 -t 30s http://aggregator-service:8080/benchmark/grpc/1
+
+# Test 200 RPS (6,000 calls over 30s)
+kubectl run load-generator --image=fortio/fortio --rm -it -- load -c 20 -qps 200 -t 30s http://aggregator-service:8080/benchmark/grpc/1
+
+# Test 300 RPS (6,000 calls over 60s)
+kubectl run load-generator --image=fortio/fortio --rm -it -- load -c 30 -qps 300 -t 60s http://aggregator-service:8080/benchmark/grpc/1
+
+# Test 500 RPS (6,000 calls over 120s)
+kubectl run load-generator --image=fortio/fortio --rm -it -- load -c 50 -qps 500 -t 120s http://aggregator-service:8080/benchmark/grpc/1
