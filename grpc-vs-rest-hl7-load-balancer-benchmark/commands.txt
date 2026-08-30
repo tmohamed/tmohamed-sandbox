@@ -36,3 +36,10 @@ kubectl logs -l app=service-a --max-log-requests=10 -f --tail=1
 
 for i in {1..9}; do curl -s http://localhost:8080/benchmark/grpc/1; echo ""; done
 
+# Fish shell version of script:
+for i in (seq 1 9); curl -s http://localhost:8080/benchmark/grpc/1; echo ""; end
+
+
+# 2. Test gRPC
+mvn test-compile gatling:test -pl load-tests -Dgatling.simulationClass=com.example.benchmark.GrpcSimulation
+
