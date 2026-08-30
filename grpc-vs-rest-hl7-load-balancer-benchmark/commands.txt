@@ -5,7 +5,9 @@ mvn clean package -DskipTests && docker compose build --no-cache && docker compo
 
 start docker deamon
 minikube start --cpus=4 --memory=8192
-eval $(minikube docker-env)
+
+eval $(minikube docker-env -u)
+minikube docker-env -u --shell fish | source
 
 
 # 1. Build Maven JARs
@@ -15,10 +17,13 @@ mvn clean package -DskipTests
 docker build -t aggregator-service:1.0.0 ./aggregator-service
 docker build -t service-a:1.0.0 ./service-a
 
-# Minikube will be used to build images instead of Docker commands above
-# 2. Build images directly inside Minikube
-minikube image build -t aggregator-service:1.0.0 ./aggregator-service
-minikube image build -t service-a:1.0.0 ./service-a
+# Step 3: Load Images into Minikube
+minikube image load aggregator-service:1.0.0
+minikube image load service-a:1.0.0
+
+
+# Step 4: Verify Images in Minikube
+minikube image ls | grep -E "aggregator|service"
 
 kubectl apply -f k8s/
 kubectl get pods -w
