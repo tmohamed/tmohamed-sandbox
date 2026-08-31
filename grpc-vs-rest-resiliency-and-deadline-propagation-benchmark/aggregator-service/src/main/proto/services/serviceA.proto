@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package com.example.servicea;
+
+option java_multiple_files = true;
+option java_package = "com.example.servicea.grpc.generated";
+
+service DataService {
+  rpc GetSlowData (DataRequest) returns (DataResponse);
+}
+
+message DataRequest {
+  string request_id = 1;
+}
+
+message DataResponse {
+  string request_id = 1;
+  string payload = 3;
+  int64 timestamp = 4;
+}

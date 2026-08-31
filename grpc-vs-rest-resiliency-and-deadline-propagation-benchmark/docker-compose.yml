@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  service-a:
+    build:
+      context: ./service-a
+    container_name: service-a
+    ports:
+      - "8081:8081"
+      - "9091:9091"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
+
+  aggregator-service:
+    build:
+      context: ./aggregator-service
+    container_name: aggregator-service
+    ports:
+      - "8080:8080"
+    deploy:
+      resources:
+        limits:
+          cpus: '1.00'
+          memory: 1024M
+    depends_on:
+      - service-a
