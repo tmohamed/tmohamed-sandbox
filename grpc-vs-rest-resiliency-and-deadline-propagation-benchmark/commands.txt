@@ -1,19 +1,7 @@
-# Test REST Fan-out
-curl http://localhost:8080/benchmark/rest/req-123
-
-# Test gRPC Fan-out
-curl http://localhost:8080/benchmark/grpc/req-123
-
 mvn clean package -DskipTests && docker compose build --no-cache && docker compose up
 
-$ grpcurl -plaintext localhost:9091 list
-$ grpcurl -d '{"request_id":"Tamer Mohamed"}' -plaintext localhost:9091 com.example.benchmark.data.DataService.GetData
+# Test REST Deadline Propagation
+curl http://localhost:8080/benchmark/deadline/rest/req-123
 
-
-# 1. Test REST
-docker compose restart aggregator-service
-mvn test-compile gatling:test -pl load-tests -Dgatling.simulationClass=com.example.benchmark.RestSimulation
-
-# 2. Test gRPC
-docker compose restart aggregator-service
-mvn test-compile gatling:test -pl load-tests -Dgatling.simulationClass=com.example.benchmark.GrpcSimulation
+# Test gRPC Deadline Propagation
+curl http://localhost:8080/benchmark/deadline/grpc/req-123
