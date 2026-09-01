@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  service-a:
+    build:
+      context: ./service-a
+    container_name: service-a
+    ports:
+      - "8080:8080"
+      - "9090:9090"
+    deploy:
+      resources:
+        limits:
+          cpus: '1.00'
+          memory: 1024M

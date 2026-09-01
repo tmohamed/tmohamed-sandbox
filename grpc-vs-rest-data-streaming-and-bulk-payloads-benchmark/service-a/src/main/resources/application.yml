@@ -1,0 +1,16 @@
+server:
+  port: 8080 # REST HTTP/1.1 Port
+
+spring:
+  threads:
+    virtual:
+      enabled: true # Enable Spring Boot 4 Virtual Threads
+  grpc:
+    server:
+      port: 9090 # gRPC HTTP/2 Port
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus,metrics

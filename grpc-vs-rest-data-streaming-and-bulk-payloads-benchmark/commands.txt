@@ -1,0 +1,75 @@
+# installing jq for pretty-printing JSON output
+$ brew install jq
+
+mvn clean package -DskipTests && docker compose build --no-cache && docker compose up
+
+# Test REST Data Streaming using media type "application/x-ndjson"
+--
+curl --write-out -N "http://localhost:8080/api/v1/export/stream?count=100"
+curl -N "http://localhost:8080/api/v1/export/stream?count=100000"
+
+curl -N -s -o /dev/null -w "\n================ REST NDJSON Metrics ================\nTime to First Byte (TTFB) : %{time_starttransfer} s\nTotal Transfer Duration   : %{time_total} s\nWire Payload Size         : %{size_download} bytes\nHTTP Response Code        : %{http_code}\n=====================================================\n" \
+"http://localhost:8080/api/v1/export/stream?count=100000"
+
+# -------------------------------------------------------------------#
+# -------------------------------------------------------------------#
+
+# Test REST Data Streaming using pagination
+--
+# Test gRPC Deadline Propagation
+curl -s "http://localhost:8080/api/v1/export/page?page=0"
+
+# Fetch pages 0 through 9 (10,000 items total)
+for page in {0..9}; do
+  echo "Fetching page $page..."
+  curl -s "http://localhost:8080/api/v1/export/page?page=$page&size=1000" | jq '.'
+done
+
+
+bash -c '
+total_bytes=0
+start_time=$(python3 -c "import time; print(time.time())")
+ttfb_page0=0
+
+echo "Fetching 100 pages (1,000 records/page) sequentially..."
+
+for page in {0..99}; do
+  # Capture page TTFB, size, and status code
+  res=$(curl -s -o /dev/null -w "%{time_starttransfer}:%{size_download}:%{http_code}" "http://localhost:8080/api/v1/export/page?page=$page&size=1000")
+
+  IFS=":" read -r ttfb size code <<< "$res"
+
+  if [ $page -eq 0 ]; then
+    ttfb_page0=$ttfb
+  fi
+
+  total_bytes=$((total_bytes + size))
+done
+
+end_time=$(python3 -c "import time; print(time.time())")
+duration=$(python3 -c "print(round($end_time - $start_time, 6))")
+avg_time=$(python3 -c "print(round(($end_time - $start_time) / 100, 6))")
+
+echo ""
+echo "================ REST Pagination Metrics ================"
+echo "Time to First Byte (Page 0)  : ${ttfb_page0} s"
+echo "Total Transfer Duration     : ${duration} s"
+echo "Average Time Per Page       : ${avg_time} s"
+echo "Total Wire Payload Size     : ${total_bytes} bytes"
+echo "HTTP Response Code          : ${code}"
+echo "========================================================="
+'
+
+
+# -------------------------------------------------------------------#
+# -------------------------------------------------------------------#
+
+
+# Test REST Data Streaming using gRPC
+--
+$ grpcurl -plaintext localhost:9090 list
+$ grpcurl -d '{"record_count":100}' -plaintext localhost:9090 com.example.servicea.DataService.ExportData
+$ grpcurl -d '{"record_count":100000}' -plaintext localhost:9090 com.example.servicea.DataService.ExportData
+
+# Measure gRPC streaming time and output size for 100,000 records
+$ time grpcurl -d '{"record_count":100000}' -plaintext localhost:9090 com.example.servicea.DataService.ExportData | wc -c

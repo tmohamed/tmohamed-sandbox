@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package com.example.servicea;
+
+option java_multiple_files = true;
+option java_package = "com.example.servicea.grpc.generated";
+
+service DataService {
+  // Use Case 4: Server Streaming for Bulk Data Export
+  rpc ExportData (ExportRequest) returns (stream DataRecord);
+}
+
+message ExportRequest {
+  int32 record_count = 1;
+}
+
+message DataRecord {
+  int32 id = 1;
+  string title = 2;
+  double amount = 3;
+  int64 timestamp = 4;
+}
