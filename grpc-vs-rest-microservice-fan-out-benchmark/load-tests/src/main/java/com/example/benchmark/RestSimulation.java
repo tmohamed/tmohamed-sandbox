@@ -4,6 +4,9 @@ import io.gatling.javaapi.core.ScenarioBuilder;
 import io.gatling.javaapi.core.Simulation;
 import io.gatling.javaapi.http.HttpProtocolBuilder;
 
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
+
 import static io.gatling.javaapi.core.CoreDsl.*;
 import static io.gatling.javaapi.core.CoreDsl.constantUsersPerSec;
 import static io.gatling.javaapi.core.CoreDsl.rampUsersPerSec;
@@ -29,9 +32,13 @@ public class RestSimulation extends Simulation {
         setUp(
                 // Phase 1: Test REST endpoint
                 restScenario.injectOpen(
-                        constantUsersPerSec(10).during(15),     // Warm-up: 10 RPS for 15s to trigger JIT compilation
-                        rampUsersPerSec(10).to(100).during(30), // Ramp-up: 10 to 200 RPS over 30s
-                        constantUsersPerSec(100).during(60)     // Sustained load: Hold 200 RPS for 60s
+                        constantUsersPerSec(100).during(30),     // Warm-up: 10 RPS for 15s to trigger JIT compilation
+                        nothingFor(Duration.of(10, ChronoUnit.MILLIS)), // Pause for 5s to allow system stabilization
+                        rampUsersPerSec(100).to(150).during(30), // Ramp-up: 10 to 200 RPS over 30s
+                        nothingFor(Duration.of(10, ChronoUnit.MILLIS)), // Pause for 5s to allow system stabilization
+                        constantUsersPerSec(200).during(60),     // Sustained load: Hold 200 RPS for 60s
+                        nothingFor(Duration.of(10, ChronoUnit.MILLIS)), // Pause for 5s to allow system stabilization
+                        constantUsersPerSec(250).during(60)     // Sustained load: Hold 200 RPS for 60s
                 ).protocols(httpProtocol)
         );
     }
