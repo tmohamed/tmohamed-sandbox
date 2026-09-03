@@ -23,9 +23,7 @@
 
     <modules>
         <module>service-a</module>
-        <module>service-b</module>
         <module>aggregator-service</module>
-        <module>load-tests</module>
     </modules>
 
 </project>
