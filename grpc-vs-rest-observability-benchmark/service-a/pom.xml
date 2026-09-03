@@ -55,6 +55,13 @@
             <artifactId>micrometer-observation</artifactId>
         </dependency>
 
+
+        <!-- Spring Security for gRPC Interceptor Support -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
