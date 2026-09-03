@@ -13,10 +13,4 @@ public class GrpcClientConfig {
         Channel channel = channelFactory.createChannel("servicea");
         return  com.example.servicea.grpc.generated.DataServiceGrpc.newBlockingStub(channel);
     }
-
-    @Bean
-    public com.example.serviceb.grpc.generated.DataServiceGrpc.DataServiceBlockingStub serviceBBlockingStub(GrpcChannelFactory channelFactory){
-        Channel channel = channelFactory.createChannel("serviceb");
-        return  com.example.serviceb.grpc.generated.DataServiceGrpc.newBlockingStub(channel);
-    }
 }

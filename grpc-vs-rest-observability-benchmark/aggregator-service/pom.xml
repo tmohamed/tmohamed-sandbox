@@ -67,6 +67,12 @@
             <artifactId>micrometer-observation</artifactId>
         </dependency>
 
+        <!-- OpenTelemetry API for MDC Context Binding -->
+        <dependency>
+            <groupId>io.opentelemetry</groupId>
+            <artifactId>opentelemetry-api</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

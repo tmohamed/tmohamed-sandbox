@@ -3,6 +3,8 @@ package com.example.aggregator.controller;
 import com.example.aggregator.dto.AggregatedResponseDto;
 import com.example.aggregator.dto.DataItemDto;
 import com.example.aggregator.dto.DataResponseDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,14 +27,10 @@ public class AggregatorController {
     @Autowired
     private com.example.servicea.grpc.generated.DataServiceGrpc.DataServiceBlockingStub serviceAStub;
 
-    @Autowired
-    private com.example.serviceb.grpc.generated.DataServiceGrpc.DataServiceBlockingStub serviceBStub;
-
     @Value("${serviceA.uri}")
     private String serviceAUri;
 
-    @Value("${serviceB.uri}")
-    private String serviceBUri;
+    private static final Logger log = LoggerFactory.getLogger(AggregatorController.class);
 
     public AggregatorController(WebClient webClient) {
         this.webClient = webClient;
@@ -41,6 +39,8 @@ public class AggregatorController {
     // --- REST FAN-OUT BENCHMARK ENDPOINT ---
     @GetMapping("/benchmark/rest/{id}")
     public Mono<AggregatedResponseDto> benchmarkRest(@PathVariable String id) {
+        log.info("Processing REST observability request for ID: {}", id); // Log inside active request span
+
         long startTime = System.currentTimeMillis();
 
         Mono<DataResponseDto> callA = webClient.get()
@@ -48,52 +48,31 @@ public class AggregatorController {
                 .retrieve()
                 .bodyToMono(DataResponseDto.class);
 
-        Mono<DataResponseDto> callB = webClient.get()
-                .uri(serviceBUri + id)
-                .retrieve()
-                .bodyToMono(DataResponseDto.class);
-
-        return Mono.zip(callA, callB).map(tuple -> {
+        return callA.map(responseA -> {
             long elapsed = System.currentTimeMillis() - startTime;
-            return new AggregatedResponseDto(id, tuple.getT1(), tuple.getT2(), elapsed);
+            return new AggregatedResponseDto(id, responseA, elapsed);
         });
     }
 
     // --- gRPC FAN-OUT BENCHMARK ENDPOINT ---
     @GetMapping("/benchmark/grpc/{id}")
     public CompletableFuture<AggregatedResponseDto> benchmarkGrpc(@PathVariable String id) {
+        log.info("Processing gRPC observability request for ID: {}", id); // Log inside active request span
+
         long startTime = System.currentTimeMillis();
         com.example.servicea.grpc.generated.DataRequest requestA = com.example.servicea.grpc.generated.DataRequest.newBuilder().setRequestId(id).build();
-        com.example.serviceb.grpc.generated.DataRequest requestB = com.example.serviceb.grpc.generated.DataRequest.newBuilder().setRequestId(id).build();
 
         CompletableFuture<com.example.servicea.grpc.generated.DataResponse> futureA = CompletableFuture.supplyAsync(() -> serviceAStub.getData(requestA), executor);
-        CompletableFuture<com.example.serviceb.grpc.generated.DataResponse> futureB = CompletableFuture.supplyAsync(() -> serviceBStub.getData(requestB), executor);
 
-        return CompletableFuture.allOf(futureA, futureB).thenApply(v -> {
+        return CompletableFuture.allOf(futureA).thenApply(v -> {
             DataResponseDto resA = mapToDto(futureA.join());
-            DataResponseDto resB = mapToDto(futureB.join());
-
             long elapsed = System.currentTimeMillis() - startTime;
-            return new AggregatedResponseDto(id, resA, resB, elapsed);
+            return new AggregatedResponseDto(id, resA, elapsed);
         });
     }
 
     // Helper method to map Protobuf DataResponse into DataResponseDto
     private DataResponseDto mapToDto(com.example.servicea.grpc.generated.DataResponse response) {
-        List<DataItemDto> items = response.getItemsList().stream()
-                .map(i -> new DataItemDto(
-                        i.getId(),
-                        i.getName(),
-                        i.getPrice(),
-                        i.getQuantity(),
-                        i.getTimestamp()
-                ))
-                .toList();
-
-        return new DataResponseDto(response.getRequestId(), items);
-    }
-
-    private DataResponseDto mapToDto(com.example.serviceb.grpc.generated.DataResponse response) {
         List<DataItemDto> items = response.getItemsList().stream()
                 .map(i -> new DataItemDto(
                         i.getId(),

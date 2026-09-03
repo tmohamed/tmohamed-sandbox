@@ -10,10 +10,33 @@ $ grpcurl -plaintext localhost:9091 list
 $ grpcurl -d '{"request_id":"Tamer Mohamed"}' -plaintext localhost:9091 com.example.benchmark.data.DataService.GetData
 
 
-# 1. Test REST
-docker compose restart aggregator-service
-mvn test-compile gatling:test -pl load-tests -Dgatling.simulationClass=com.example.benchmark.RestSimulation
 
-# 2. Test gRPC
-docker compose restart aggregator-service
-mvn test-compile gatling:test -pl load-tests -Dgatling.simulationClass=com.example.benchmark.GrpcSimulation
+
+
+# Verification & Operational Workflow #
+# ----------------------------------- #
+
+1. Verify gRPC Server Reflection via grpcurl
+--
+# List all exposed gRPC services on service-a
+grpcurl -plaintext localhost:9091 list
+
+# Describe the DataService contract dynamically
+grpcurl -plaintext localhost:9091 describe com.example.servicea.DataService
+
+# Invoke the GetData RPC directly with JSON payload
+grpcurl -plaintext -d '{"request_id": "123"}' localhost:9091 com.example.servicea.DataService.GetData
+
+
+2. Verify Distributed Tracing Context Propagation
+--
+# Send request to aggregator with an explicit W3C traceparent header
+curl -i -H "traceparent: 00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01" \
+  http://localhost:8080/benchmark/grpc/123
+
+
+3. Verify Security Context Propagation
+--
+# Call with Bearer Token in Metadata
+grpcurl -plaintext -rpc-header "authorization: Bearer test-secret-token" \
+  -d '{"id": "123"}' localhost:9091 com.example.benchmark.DataService/GetData
