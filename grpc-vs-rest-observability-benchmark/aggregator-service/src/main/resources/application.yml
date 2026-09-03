@@ -1,0 +1,23 @@
+server:
+  port: 8080
+
+spring:
+  grpc:
+    client:
+      channel:
+        servicea:
+          target: "service-a:9091" # either using dns prefix or not, both are valid
+        serviceb:
+          target: "dns:///service-b:9092"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+
+serviceA:
+  uri: 'http://service-a:8081/api/v1/data/'
+
+serviceB:
+  uri: 'http://service-b:8082/api/v1/data/'

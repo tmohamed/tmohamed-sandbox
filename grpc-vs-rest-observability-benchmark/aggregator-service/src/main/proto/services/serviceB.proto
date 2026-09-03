@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package com.example.serviceb;
+
+option java_multiple_files = true;
+option java_package = "com.example.serviceb.grpc.generated";
+
+service DataService {
+  rpc GetData (DataRequest) returns (DataResponse);
+}
+
+message DataRequest {
+  string request_id = 1;
+}
+
+message DataItem {
+  string id = 1;
+  string name = 2;
+  double price = 3;
+  int32 quantity = 4;
+  int64 timestamp = 5;
+}
+
+message DataResponse {
+  string request_id = 1;
+  repeated DataItem items = 2;
+}
