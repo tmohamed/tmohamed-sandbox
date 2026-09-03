@@ -10,7 +10,15 @@ spring:
       port: 9091 # gRPC HTTP/2 Port
 
 management:
+  tracing:
+    sampling:
+      probability: 1.0 # Sample 100% of requests for benchmarking
+
   endpoints:
     web:
       exposure:
-        include: health,prometheus,metrics
+        include: health,prometheus,metrics,traces
+
+logging:
+  pattern:
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
