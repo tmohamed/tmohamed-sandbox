@@ -17,6 +17,9 @@ spring:
     tracing:
       sampling:
         probability: 1.0 # Sample 100% of requests for benchmarking
+      baggage:
+        correlation:
+          enabled: true
 
   endpoints:
     web:

@@ -61,6 +61,12 @@
             <artifactId>opentelemetry-api</artifactId>
         </dependency>
 
+        <!-- REQUIRED: OpenTelemetry SDK so Spring Boot creates the Tracer bean -->
+        <dependency>
+            <groupId>io.opentelemetry</groupId>
+            <artifactId>opentelemetry-sdk</artifactId>
+        </dependency>
+
 
         <!-- Spring Security for gRPC Interceptor Support -->
         <dependency>
