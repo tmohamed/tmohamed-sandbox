@@ -27,7 +27,7 @@ spring:
 
 logging:
   pattern:
-    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
+    correlation: "[%X{trace_id:-}]"
 
 serviceA:
   uri: 'http://service-a:8081/api/v1/data/'

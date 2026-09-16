@@ -13,6 +13,11 @@ services:
         limits:
           cpus: '0.50'
           memory: 512M
+    environment:
+      - OTEL_SERVICE_NAME=service-a
+      - OTEL_TRACES_EXPORTER=none
+      - OTEL_METRICS_EXPORTER=none
+      - OTEL_LOGS_EXPORTER=none
 
   aggregator-service:
     build:
@@ -27,3 +32,8 @@ services:
           memory: 1024M
     depends_on:
       - service-a
+    environment:
+      - OTEL_SERVICE_NAME=aggregator-service
+      - OTEL_TRACES_EXPORTER=none
+      - OTEL_METRICS_EXPORTER=none
+      - OTEL_LOGS_EXPORTER=none
