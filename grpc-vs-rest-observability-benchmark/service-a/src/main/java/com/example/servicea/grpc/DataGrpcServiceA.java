@@ -1,5 +1,6 @@
 package com.example.servicea.grpc;
 
+import com.example.servicea.config.GrpcSecurityInterceptor;
 import com.example.servicea.grpc.generated.DataRequest;
 import com.example.servicea.grpc.generated.DataResponse;
 import com.example.servicea.grpc.generated.DataServiceGrpc;
@@ -9,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.grpc.server.service.GrpcService;
 
-@GrpcService
+@GrpcService(interceptors = {GrpcSecurityInterceptor.class})
 public class DataGrpcServiceA extends DataServiceGrpc.DataServiceImplBase{
     private final DataServiceA mockService;
 

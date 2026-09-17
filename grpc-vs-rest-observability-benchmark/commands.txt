@@ -7,7 +7,15 @@ curl http://localhost:8080/benchmark/grpc/req-123
 mvn clean package -DskipTests && docker compose build --no-cache && docker compose up
 
 $ grpcurl -plaintext localhost:9091 list
-$ grpcurl -d '{"request_id":"Tamer Mohamed"}' -plaintext localhost:9091 com.example.benchmark.data.DataService.GetData
+
+# Testing without Bearer Token in Metadata
+$ grpcurl -d '{"request_id":"Tamer Mohamed"}' -plaintext localhost:9091 com.example.servicea.DataService.GetData
+
+# Testing with Bearer Token in Metadata
+$ grpcurl -rpc-header "authorization: Bearer test-secret-password" -d '{"request_id":"Tamer Mohamed"}' -plaintext localhost:9091 com.example.servicea.DataService/GetData
+
+# Testing with Bearer Token in Metadata with Wrong password
+$ grpcurl -rpc-header "authorization: Bearer wrong-password" -d '{"request_id":"Tamer Mohamed"}' -plaintext localhost:9091 com.example.servicea.DataService/GetData
 
 
 

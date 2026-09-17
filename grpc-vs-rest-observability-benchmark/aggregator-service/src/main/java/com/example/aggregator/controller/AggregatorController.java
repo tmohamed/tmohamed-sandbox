@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import io.grpc.Metadata;
+import io.grpc.stub.MetadataUtils;
 
 @RestController
 public class AggregatorController {
@@ -57,12 +59,27 @@ public class AggregatorController {
     // --- gRPC FAN-OUT BENCHMARK ENDPOINT ---
     @GetMapping("/benchmark/grpc/{id}")
     public CompletableFuture<AggregatedResponseDto> benchmarkGrpc(@PathVariable String id) {
-        log.info("Processing gRPC observability request for ID: {}", id); // Log inside active request span
+        log.info("Processing gRPC observability request for ID: {}", id);
 
         long startTime = System.currentTimeMillis();
-        com.example.servicea.grpc.generated.DataRequest requestA = com.example.servicea.grpc.generated.DataRequest.newBuilder().setRequestId(id).build();
 
-        CompletableFuture<com.example.servicea.grpc.generated.DataResponse> futureA = CompletableFuture.supplyAsync(() -> serviceAStub.getData(requestA), executor);
+        // 1. Construct Metadata header with Bearer token
+        Metadata headers = new Metadata();
+        headers.put(
+                Metadata.Key.of("authorization", Metadata.ASCII_STRING_MARSHALLER),
+                "Bearer test-secret-password"
+        );
+
+        // 2. Create interceptor and apply it to the stub
+        var authenticatedStub = serviceAStub.withInterceptors(
+                MetadataUtils.newAttachHeadersInterceptor(headers)
+        );
+
+        com.example.servicea.grpc.generated.DataRequest requestA =
+                com.example.servicea.grpc.generated.DataRequest.newBuilder().setRequestId(id).build();
+
+        CompletableFuture<com.example.servicea.grpc.generated.DataResponse> futureA =
+                CompletableFuture.supplyAsync(() -> authenticatedStub.getData(requestA), executor);
 
         return CompletableFuture.allOf(futureA).thenApply(v -> {
             DataResponseDto resA = mapToDto(futureA.join());
