@@ -31,15 +31,16 @@ public class GrpcSimulation extends Simulation {
 
     {
         setUp(
-                // Phase 2: Test gRPC endpoint sequentially after REST completes
                 grpcScenario.injectOpen(
-                        constantUsersPerSec(100).during(30),     // Warm-up: 10 RPS for 15s to trigger JIT compilation
-                        nothingFor(Duration.of(10, ChronoUnit.MILLIS)), // Pause for 5s to allow system stabilization
-                        rampUsersPerSec(100).to(150).during(30), // Ramp-up: 10 to 200 RPS over 30s
-                        nothingFor(Duration.of(10, ChronoUnit.MILLIS)), // Pause for 5s to allow system stabilization
-                        constantUsersPerSec(200).during(60),     // Sustained load: Hold 200 RPS for 60s
-                        nothingFor(Duration.of(10, ChronoUnit.MILLIS)), // Pause for 5s to allow system stabilization
-                        constantUsersPerSec(250).during(60)     // Sustained load: Hold 200 RPS for 60s
+                        // 1. Warm-up phase: 25 RPS for 15s
+                        constantUsersPerSec(25).during(Duration.ofSeconds(15)),
+                        nothingFor(Duration.ofSeconds(5)),
+
+                        // 2. Linear ramp-up to 250 RPS over 30s
+                        rampUsersPerSec(25).to(250).during(Duration.ofSeconds(30)),
+
+                        // 3. Sustained load: Hold 180 RPS (10,800 RPM) for 3 minutes
+                        constantUsersPerSec(180).during(Duration.ofMinutes(3))
                 ).protocols(httpProtocol)
         );
     }
